@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 
@@ -29,7 +29,7 @@ class BmiCalculator extends StatefulWidget {
 class _BmiCalculatorState extends State<BmiCalculator> {
 // Here Im going to declare a variable for our custom radio button
   int currentindex = 0;
-  String? result;
+  String result = "";
   // declaring the input Controller to get the input value
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
@@ -131,7 +131,11 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStatePropertyAll<Color>(Colors.blue)),
-                  onPressed: () {},
+                  onPressed: () {
+                    double height = double.parse(heightController.value.text);
+                    double weight = double.parse(weightController.value.text);
+                    calculateBmi(height, weight);
+                  },
                   child: Text(
                     "Calculate",
                     style: TextStyle(color: Colors.white),
@@ -155,7 +159,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
             Container(
               width: double.infinity,
               child: Text(
-                "",
+                "$result",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
@@ -166,10 +170,12 @@ class _BmiCalculatorState extends State<BmiCalculator> {
     ));
   }
 
-  String calculateBmi(double height, double weight) {
-    double result = weight / (height * height);
-    String bmi = result.toStringAsFixed(2);
-    return bmi;
+  void calculateBmi(double height, double weight) {
+    double finalresult = weight / (height * height / 10000); // cm to metre conversion
+    String bmi = finalresult.toStringAsFixed(2);
+    setState(() {
+      result = bmi;
+    });
   }
 
 // and here i'm going to declare a function to change the index on button pressed
