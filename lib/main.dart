@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: BmiCalculator(),
     );
   }
@@ -171,7 +172,8 @@ class _BmiCalculatorState extends State<BmiCalculator> {
   }
 
   void calculateBmi(double height, double weight) {
-    double finalresult = weight / (height * height / 10000); // cm to metre conversion
+    double finalresult =
+        weight / (height * height / 10000); // cm to metre conversion
     String bmi = finalresult.toStringAsFixed(2);
     setState(() {
       result = bmi;
