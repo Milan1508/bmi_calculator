@@ -29,6 +29,10 @@ class BmiCalculator extends StatefulWidget {
 class _BmiCalculatorState extends State<BmiCalculator> {
 // Here Im going to declare a variable for our custom radio button
   int currentindex = 0;
+  String? result;
+  // declaring the input Controller to get the input value
+  TextEditingController heightController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +83,9 @@ class _BmiCalculatorState extends State<BmiCalculator> {
             ),
             TextField(
               keyboardType: TextInputType.number,
+              // adding the controller
+              controller: heightController,
+
               decoration: InputDecoration(
                   hintText: "Your height in Cm",
                   filled: true,
@@ -102,6 +109,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
             ),
             TextField(
               keyboardType: TextInputType.number,
+              controller: weightController,
               decoration: InputDecoration(
                   hintText: "Your weight in Kg",
                   filled: true,
@@ -111,15 +119,57 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                     borderSide: BorderSide.none,
                   )),
             ),
-            SizedBox(height: 20.0,),
+            SizedBox(
+              height: 20.0,
+            ),
 
-          // Making Calculation Button
-          Container(child: TextButton(child: ),)
-          
+            // Making Calculation Button
+            Container(
+                width: double.infinity,
+                height: 50.0,
+                child: TextButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll<Color>(Colors.blue)),
+                  onPressed: () {},
+                  child: Text(
+                    "Calculate",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )),
+
+            SizedBox(
+              height: 20.0,
+            ),
+            Container(
+              width: double.infinity,
+              child: Text(
+                "Your BMI is :",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: 50.0,
+            ),
+            Container(
+              width: double.infinity,
+              child: Text(
+                "",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+              ),
+            ),
           ],
         ),
       )),
     ));
+  }
+
+  String calculateBmi(double height, double weight) {
+    double result = weight / (height * height);
+    String bmi = result.toStringAsFixed(2);
+    return bmi;
   }
 
 // and here i'm going to declare a function to change the index on button pressed
